@@ -1,0 +1,178 @@
+[
+    {
+        "id": 1,
+        "title": "INTRODUCTION TO INSURANCE",
+        "Minimum": "01:00:00",
+        "Completed": "01:00:00",
+        "Counted": "01:00:00",
+        "percentage": "40%"
+    },
+    {
+        "id": 2,
+        "title": "CORE ELEMENTS OF INSURANCE",
+        "Minimum": "01:00:00",
+        "Completed": "01:00:00",
+        "Counted": "01:00:00",
+        "percentage": "80%"
+    },
+    {
+        "id": 3,
+        "title": "UNDERSTANDING INSURANCE POLICIES",
+        "Minimum": "00:45:00",
+        "Completed": "00:50:00",
+        "Counted": "00:45:00",
+        "percentage": "100%"
+    },
+    {
+        "id": 4,
+        "title": "RISK MANAGEMENT IN INSURANCE",
+        "Minimum": "01:30:00",
+        "Completed": "01:25:00",
+        "Counted": "01:25:00",
+        "percentage": "95%"
+    },
+    {
+        "id": 5,
+        "title": "INSURANCE AND FINANCIAL PLANNING",
+        "Minimum": "01:00:00",
+        "Completed": "01:00:00",
+        "Counted": "01:00:00",
+        "percentage": "60%"
+    },
+    {
+        "id": 6,
+        "title": "INSURANCE REGULATIONS",
+        "Minimum": "01:20:00",
+        "Completed": "01:15:00",
+        "Counted": "01:15:00",
+        "percentage": "90%"
+    },
+    {
+        "id": 7,
+        "title": "TYPES OF INSURANCE PRODUCTS",
+        "Minimum": "00:50:00",
+        "Completed": "00:50:00",
+        "Counted": "00:50:00",
+        "percentage": "70%"
+    },
+    {
+        "id": 8,
+        "title": "CLAIMS MANAGEMENT",
+        "Minimum": "01:10:00",
+        "Completed": "01:05:00",
+        "Counted": "01:05:00",
+        "percentage": "85%"
+    },
+    {
+        "id": 9,
+        "title": "UNDERWRITING PROCESS",
+        "Minimum": "00:40:00",
+        "Completed": "00:45:00",
+        "Counted": "00:40:00",
+        "percentage": "100%"
+    },
+    {
+        "id": 10,
+        "title": "INSURANCE MARKETING",
+        "Minimum": "01:15:00",
+        "Completed": "01:20:00",
+        "Counted": "01:15:00",
+        "percentage": "95%"
+    },
+    {
+        "id": 11,
+        "title": "CUSTOMER SERVICE IN INSURANCE",
+        "Minimum": "01:05:00",
+        "Completed": "01:10:00",
+        "Counted": "01:05:00",
+        "percentage": "90%"
+    },
+    {
+        "id": 12,
+        "title": "INSURANCE FRAUD PREVENTION",
+        "Minimum": "00:55:00",
+        "Completed": "00:55:00",
+        "Counted": "00:55:00",
+        "percentage": "75%"
+    },
+    {
+        "id": 13,
+        "title": "REINSURANCE",
+        "Minimum": "01:10:00",
+        "Completed": "01:10:00",
+        "Counted": "01:10:00",
+        "percentage": "80%"
+    },
+    {
+        "id": 14,
+        "title": "LIFE INSURANCE POLICIES",
+        "Minimum": "01:00:00",
+        "Completed": "01:05:00",
+        "Counted": "01:00:00",
+        "percentage": "85%"
+    },
+    {
+        "id": 15,
+        "title": "HEALTH INSURANCE POLICIES",
+        "Minimum": "01:30:00",
+        "Completed": "01:25:00",
+        "Counted": "01:25:00",
+        "percentage": "95%"
+    },
+    {
+        "id": 16,
+        "title": "PROPERTY AND CASUALTY INSURANCE",
+        "Minimum": "01:15:00",
+        "Completed": "01:10:00",
+        "Counted": "01:10:00",
+        "percentage": "85%"
+    },
+    {
+        "id": 17,
+        "title": "AUTO INSURANCE",
+        "Minimum": "00:50:00",
+        "Completed": "00:50:00",
+        "Counted": "00:50:00",
+        "percentage": "70%"
+    },
+    {
+        "id": 18,
+        "title": "TRAVEL INSURANCE",
+        "Minimum": "00:45:00",
+        "Completed": "00:50:00",
+        "Counted": "00:45:00",
+        "percentage": "90%"
+    },
+    {
+        "id": 19,
+        "title": "BUSINESS INSURANCE",
+        "Minimum": "01:20:00",
+        "Completed": "01:20:00",
+        "Counted": "01:20:00",
+        "percentage": "95%"
+    },
+    {
+        "id": 20,
+        "title": "INSURANCE TECHNOLOGY",
+        "Minimum": "01:00:00",
+        "Completed": "01:00:00",
+        "Counted": "01:00:00",
+        "percentage": "80%"
+    },
+    {
+        "id": 21,
+        "title": "INSURANCE ETHICS",
+        "Minimum": "00:55:00",
+        "Completed": "00:55:00",
+        "Counted": "00:55:00",
+        "percentage": "75%"
+    },
+    {
+        "id": 22,
+        "title": "INSURANCE ACCOUNTING",
+        "Minimum": "01:10:00",
+        "Completed": "01:15:00",
+        "Counted": "01:10:00",
+        "percentage": "90%"
+    }
+]

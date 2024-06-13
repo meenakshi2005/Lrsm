@@ -1,0 +1,45 @@
+.fixed-width {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .my-20 {
+    margin: 20px 0;
+  }
+  
+  .p-20 {
+    padding: 20px;
+  }
+  
+  .tabheChp {
+    font-weight: bold;
+  }
+  
+  .lnkth11 {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  .lnkth11:hover {
+    text-decoration: underline;
+  }
+  
+  /* Additional CSS styles based on the commented section */
+  .hbody-left {
+    float: left !important;
+    width: 60% !important;
+    text-align: left !important;
+    padding: 0px 0px !important;
+  }
+  
+  .hbody-right {
+    width: 30% !important;
+  }
+  
