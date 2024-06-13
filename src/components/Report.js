@@ -1,10 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../css/report.css";
 import { Link } from "react-router-dom";
-import Nakli from "./Nakliapi"
+
+import { course_api } from "../api/api";
+
 function Report() {
-  const [naklidata,setNaklidata]=useState(Nakli)
-  const dataToPass = { name: 'John Doe', age: 30 };
+
+  const [reports,setReports]=useState([])
+
+
+  useEffect(()=>{
+    reportapifun();
+  },[]);
+
+  const reportapifun=async()=>{
+
+    const res =await course_api();
+    console.log(res,"check data");
+    setReports(res)
+
+  }
+  
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 lg:px-8">
       <div
@@ -27,25 +43,25 @@ function Report() {
 
         <table>
           <tr>
-            <th>Sr.No</th>
+          
             <th>Chapter Title</th>
             <th>Minimum</th>
             <th>Completed</th>
-            <th>Counted</th>
+         
             <th>%</th>
           </tr>
           {
-            naklidata.map(e=>(
+            reports.map((e,i)=>(
               <tr>
-              <td>{e.id}</td>
+             
               <td><Link
               to="/heltin" state={{e}}
               // to="../heltin"
               
-              >{e.title}</Link></td>
-              <td>{e.Minimum}</td>
-              <td>{e.Completed}</td>
-              <td>{e.Counted}</td>
+              >{e.ORGSTRUCTURENAME}</Link></td>
+              <td>{e.mintime}</td>
+              <td>{e?.usagetime?e?.usagetime:"00:00:00"}</td>
+             
               <td>{e.percentage}</td>
             </tr>
             ))

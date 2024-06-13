@@ -140,13 +140,13 @@ function Home() {
             </tr>
             <tr>
               <td align="right" class="lbbrder">
-                <span class="gry">Chapters Time Spent</span>
+                <span class="gry">Remaning Time</span>
               </td>
               <td class="lbbrder">{data?.REMANING_TIME}</td>
             </tr>
             <tr>
               <td align="right" class="lbbrder">
-                <span class="gry">Hours Left</span>
+                <span class="gry">Total Time</span>
               </td>
               <td class="lbbrder">
                 <strong>{data?.TOTALTIME}</strong>
@@ -166,13 +166,13 @@ function Home() {
         }}
       >
         <p style={{ fontSize: "18px", color: "#595959" }}>
-          Welcome Satter Ali to New-IC38 - Life -25 Hrs course sponsored by TATA
+          Welcome {data?.NAME} to New-IC38 - Life -25 Hrs course {data?.COURSENAME} by TATA
           AIA LIFE INSURANCE CO. LTD
         </p>
         <br />
         <p style={{ fontSize: "18px", color: "#595959" }}>
           You must study <strong>00:00:00</strong> hrs before{" "}
-          <strong>29-May-2024 12:00:00 am</strong> to complete your training.
+          <strong>{data.ENTRYDATE} {data.TOTALTIME}</strong> to complete your training.
         </p>
         <br />
         <p style={{ fontSize: "18px", color: "#595959" }}>
