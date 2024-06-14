@@ -103,3 +103,81 @@ export const chatpter_api = async (item) => {
     return error;
   }
 };
+export const testapi = async (item) => {
+  console.log(item, "userid");
+  try {
+    const val = await getlocaldata();
+    const result = await axios.post(
+      "http://103.171.45.231:3000/user/testsummary",
+      {
+        studentid: val.savedStudentId,
+        chapterid: item,
+      },
+      {
+        headers: {
+          Authorization: val.token,
+          Data: val.savedLoginId,
+        },
+      }
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};
+export const updateanswers = async (item) => {
+  console.log(item, "userid");
+  try {
+    const val = await getlocaldata();
+    const result = await axios.post(
+      "http://103.171.45.231:3000/user/updatetestanswer",
+      {
+        studentid: val.savedStudentId,
+        qid: item.questionIndex,
+        examid:item.examid,
+        answer:item.option
+      },
+      {
+        headers: {
+          Authorization: val.token,
+          Data: val.savedLoginId,
+        },
+      }
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};
+export const submitexam = async (item) => {
+  console.log(item, "userid");
+  try {
+    const val = await getlocaldata();
+    const result = await axios.post(
+      "http://103.171.45.231:3000/user/",
+      {
+        studentid: val.savedStudentId,
+        qid: item.questionIndex,
+        examid:item.examid,
+        answer:item.option
+      },
+      {
+        headers: {
+          Authorization: val.token,
+          Data: val.savedLoginId,
+        },
+      }
+    );
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};
+
+

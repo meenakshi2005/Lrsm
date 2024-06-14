@@ -25,7 +25,7 @@ function Attendance() {
 
         <table>
           <tr>
-            <th>Lohin Date Time</th>
+            <th>Login Date Time</th>
             <th>LogOut Date Time</th>
             <th>Session H.M.S</th>
           </tr>
@@ -112,18 +112,7 @@ function Attendance() {
           </tr>
         </table>
       </div>
-      <h1
-        style={{
-          fontSize: "22px",
-          fontWeight: "700",
-          padding: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          display: "flex",
-        }}
-      >
-        Overall Course Status
-      </h1>
+      
     </div>
   );
 }

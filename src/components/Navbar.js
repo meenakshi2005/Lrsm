@@ -1,4 +1,4 @@
-import { Fragment, useState, removeToken, useContext } from "react";
+import { Fragment, useState, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,23 +13,18 @@ const user = {
 const navigation = [
   { name: "Home", href: "/", current: false },
   {
-    name: "Report",
+    name: "Course",
     href: "/report",
     current: false,
-    subMenu: [
-      { name: "Report", href: "/report" },
-      { name: "Attendance", href: "/attendance" },
-      { name: "Test", href: "/test" },
-    ],
   },
   {
-    name: "Tests",
-    href: "/test",
+    name: "Glossary",
+    href: "/glossary",
     current: false,
-    subMenu: [
-      { name: "Test", href: "/test" },
-      { name: "Final Test", href: "/final-test" },
-    ],
+    // subMenu: [
+    //   { name: "Test", href: "/test" },
+    //   { name: "Final Test", href: "/final-test" },
+    // ],
   },
   { name: "Attendance", href: "/attendance" },
 ];
@@ -39,7 +34,8 @@ const userNavigation = [
   {
     name: "Sign out",
     onClick: () => {
-      removeToken();
+      // removeTokens();
+      localStorage.clear();
       window.location.to = "/login"; // Redirect to the home page
     },
     to: "/login",
@@ -54,7 +50,7 @@ export default function Example({ onLogout }) {
   const { isAuthenticated, login, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const removeToken = () => {
+  const removeTokens = () => {
     onLogout();
     alert("Logged out successfully");
     localStorage.clear();
@@ -97,15 +93,15 @@ export default function Example({ onLogout }) {
                               className={classNames(
                                 item.current
                                   ? "bg-gray-900 text-white"
-                                  : "text-gray-300 hover:bg-gray-600 text-xl hover:text-white-300",
-                                "rounded-md px-3 py-2 text-sm font-medium"
+                                  : "text-white   hover:border-b-4 text-xl hover:text-white-300",
+                                " px-3 py-2 text-sm font-medium"
                               )}
                               aria-current={item.current ? "page" : undefined}
                             >
                               {item.name}
                             </Link>
                             {item.subMenu && dropdownOpen === item.name && (
-                              <div className="absolute left-0 mt-2 w-48 origin-top-left rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                              <div className="absolute left-0 mt-4 w-48 origin-top-left rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                 {item.subMenu.map((subItem) => (
                                   <Link
                                     key={subItem.name}
@@ -164,7 +160,7 @@ export default function Example({ onLogout }) {
                                     href={item.href}
                                     onClick={
                                       item.name === "Sign out"
-                                        ? removeToken
+                                        ? removeTokens
                                         : null
                                     }
                                     className={classNames(
@@ -267,7 +263,7 @@ export default function Example({ onLogout }) {
                         key={item.name}
                         as="a"
                         href={item.href}
-                        onClick={item.name === "Sign out" ? removeToken : null}
+                        onClick={item.name === "Sign out" ? removeTokens : null}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}

@@ -26,17 +26,11 @@ function Home() {
  
   return (
     <div
-      className="fixed-width clearfix "
-      style={{
-        backgroundColor:"ButtonFace",
-        justifyContent: "center",
-        display: "flex",
-        alignItems: "center",
-        margin:"30px"
-      }}
-    >
-      <div className="col-6 p-10">
-        <div className="flex justify-between p-2">
+    className="fixed-width clearfix bg-buttonface flex flex-col lg:flex-row md:flex-row  justify-center items-center m-8"
+  >
+      <div className="col-6 p-4 w-full m-4 md:w-1/2 ">
+      <h5 className="font-bold py-2"> Course Summary</h5>
+        {/* <div className="flex justify-between p-2">
           <div className="flex flex-row items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +76,7 @@ function Home() {
             </svg>
             <span>Final Test</span>
           </div>
-        </div>
+        </div> */}
         <table
           style={{
             width: "100%",
@@ -97,7 +91,7 @@ function Home() {
                 <span class="gry">Course Status</span>
               </td>
               <td style={{ class: "lbbrde" }}>
-                <strong>Completed at 15-May-2024 03:23:02 am</strong>
+                <strong>On Progress</strong>
               </td>
             </tr>
             <tr>
@@ -116,7 +110,7 @@ function Home() {
               <td align="right" class="lbbrder">
                 <span class="gry">Sponsor</span>
               </td>
-              <td class="lbbrder">TATA AIA LIFE INSURANCE CO. LTD</td>
+              <td class="lbbrder">{data?.SPONSOR}</td>
             </tr>
             <tr>
               <td align="right" class="lbbrder">
@@ -132,11 +126,17 @@ function Home() {
             </tr>
             <tr>
               <td align="right" class="lbbrder">
-                <span class="gry">Last Date</span>
+                <span class="gry">Expiry Date</span>
               </td>
               <td class="lbbrder">
                 <strong>{data?.EXPIRYDATE}</strong>
               </td>
+            </tr>
+            <tr>
+              <td align="right" class="lbbrder">
+                <span class="gry">Used Time Time</span>
+              </td>
+              <td class="lbbrder">{data?.USEDTIME}</td>
             </tr>
             <tr>
               <td align="right" class="lbbrder">
@@ -157,22 +157,15 @@ function Home() {
       </div>
       {/* width="100%" border="0" cellSpacing="0" cellPadding="4" style={{ backgroundColor: "#F0F0F0" }} */}
       <div
-        className="col-6 p-4"
-        style={{
-          width: "50%",
-          border: "0",
-          cellSpacing: "0",
-          backgroundColor: "#f0f0f0",
-        }}
+        className="col-6 p-4 w-full md:w-1/2 border-0 bg-gray-200"
       >
         <p style={{ fontSize: "18px", color: "#595959" }}>
-          Welcome {data?.NAME} to New-IC38 - Life -25 Hrs course {data?.COURSENAME} by TATA
-          AIA LIFE INSURANCE CO. LTD
+          Welcome <strong>{data?.NAME}</strong>  to New-IC38 - Life -25 Hrs course {data?.COURSENAME} by {data?.SPONSOR}.
         </p>
         <br />
         <p style={{ fontSize: "18px", color: "#595959" }}>
-          You must study <strong>00:00:00</strong> hrs before{" "}
-          <strong>{data.ENTRYDATE} {data.TOTALTIME}</strong> to complete your training.
+          You must study before{" "}
+          <strong>{data.EXPIRYDATE}</strong> to complete your training.
         </p>
         <br />
         <p style={{ fontSize: "18px", color: "#595959" }}>
@@ -187,10 +180,10 @@ function Home() {
         <br />
         <p style={{ fontSize: "18px", color: "#595959" }}>
           You can also contact us by email at{" "}
-          <a href="mailto:help@dreamweaversindia.com">
-            help@dreamweaversindia.com
+          <a href="/">
+           __________________
           </a>{" "}
-          or by phone at 91-181-7102501.
+          or by phone at _______________
         </p>
       </div>
     </div>
