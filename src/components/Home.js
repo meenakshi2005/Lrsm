@@ -1,198 +1,368 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { student_api } from "../api/api";
-import { AuthContext } from "./AuthContext";
-
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+} from "@mui/material";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+} from "recharts";
+import "../css/home.css";
 
 function Home() {
-  
-  const [data,setData]=useState([]);
+  const [data, setData] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const [dailyHoursData, setDailyHoursData] = useState([]);
+  const [status, setStatus] = useState("");
+  const [daysRemaining, setDaysRemaining] = useState(0);
+
   useEffect(() => {
+    
+    setChartData([
+      { name: 'Completed Hours', value: 30 },
+      { name: 'Remaining Hours', value: 70 },
+    ]);
+  
+    setDailyHoursData([
+      { date: '2024-06-01', hours: 2 },
+      { date: '2024-06-02', hours: 3 },
+      { date: '2024-06-03', hours: 1 },
+      { date: '2024-06-04', hours: 4 },
+      { date: '2024-06-05', hours: 2 },
+      { date: '2024-06-06', hours: 3 },
+      { date: '2024-06-07', hours: 5 },
+    ]);
+  
+    
     fetchStudentData();
   }, []);
-
+  
   async function fetchStudentData() {
-    
-   
     try {
       const res = await student_api();
       console.log(res);
-      setData(res[0]);
+      console.log("time", res[0].TOTALTIME);
+      console.log("time", res[0].REMANING_TIME);
+
+      const studentData = res[0];
+      setData(studentData);
+
+      const { TRAININGSTARTDATE, TRAININGENDDATE } = studentData;
+      if (!TRAININGSTARTDATE && !TRAININGENDDATE) {
+        setStatus("Not Started");
+      } else if (TRAININGSTARTDATE && !TRAININGENDDATE) {
+        setStatus("On Going");
+      } else if (TRAININGSTARTDATE && TRAININGENDDATE) {
+        setStatus("Completed");
+      }
+
+      // Calculate days remaining
+      const currentDate = new Date();
+      const expiryDate = new Date(studentData.EXPIRYDATE);
+      const timeDiff = expiryDate - currentDate;
+      const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+      setDaysRemaining(daysRemaining);
 
     } catch (error) {
       console.error("Error fetching student data:", error);
     }
   }
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Not Started":
+        return "red";
+      case "On Going":
+        return "orange";
+      case "Completed":
+        return "green";
+      default:
+        return "black";
+    }
+  };
 
- 
   return (
     <div
-      className="fixed-width clearfix "
+      className="fixed-width clearfix"
       style={{
-        backgroundColor:"ButtonFace",
-        justifyContent: "center",
+        backgroundColor: "white",
         display: "flex",
-        alignItems: "center",
-        margin:"30px"
+        flexDirection: "column",
+        padding: "0px 200px 0px 200px",
+        marginTop: "50px",
       }}
     >
-      <div className="col-6 p-10">
-        <div className="flex justify-between p-2">
-          <div className="flex flex-row items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="green"
-              class="size-6 pr-1"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <snap>Chapters</snap>
-          </div>
-          <div className="flex flex-row items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="orange"
-              class="size-6 pr-1"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <span>Revision Tests</span>
-          </div>
-          <div className="flex flex-row items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="orange"
-              className="size-6 pr-1"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <span>Final Test</span>
-          </div>
-        </div>
-        <table
-          style={{
-            width: "100%",
-            border: "0",
-            cellSpacing: "0",
-            cellPadding: "4",
-          }}
-        >
-          <tbody>
-            <tr>
-              <td style={{ alignItems: "right", class: "lbbrde" }}>
-                <span class="gry">Course Status</span>
-              </td>
-              <td style={{ class: "lbbrde" }}>
-                <strong>Completed at 15-May-2024 03:23:02 am</strong>
-              </td>
-            </tr>
-            <tr>
-              <td style={{ alignItems: "right", class: "lbbrde" }}>
-                <span class="gry">LoginID</span>
-              </td>
-              <td style={{ class: "lbbrde" }}>{data?.URNNO}</td>
-            </tr>
-            <tr>
-              <td align="right" class="lbbrder">
-                <span class="gry">Name</span>
-              </td>
-              <td class="lbbrder">{data?.NAME}</td>
-            </tr>
-            <tr>
-              <td align="right" class="lbbrder">
-                <span class="gry">Sponsor</span>
-              </td>
-              <td class="lbbrder">TATA AIA LIFE INSURANCE CO. LTD</td>
-            </tr>
-            <tr>
-              <td align="right" class="lbbrder">
-                <span class="gry">Course</span>
-              </td>
-              <td class="lbbrder">{data?.COURSENAME}</td>
-            </tr>
-            <tr>
-              <td align="right" class="lbbrder">
-                <span class="gry">Start Date</span>
-              </td>
-              <td class="lbbrder">{data?.ENTRYDATE}</td>
-            </tr>
-            <tr>
-              <td align="right" class="lbbrder">
-                <span class="gry">Last Date</span>
-              </td>
-              <td class="lbbrder">
-                <strong>{data?.EXPIRYDATE}</strong>
-              </td>
-            </tr>
-            <tr>
-              <td align="right" class="lbbrder">
-                <span class="gry">Remaning Time</span>
-              </td>
-              <td class="lbbrder">{data?.REMANING_TIME}</td>
-            </tr>
-            <tr>
-              <td align="right" class="lbbrder">
-                <span class="gry">Total Time</span>
-              </td>
-              <td class="lbbrder">
-                <strong>{data?.TOTALTIME}</strong>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <p style={{ fontSize: "18px", color: "#595959" }}>
+        Welcome{" "}
+        <span style={{ color: "maroon", fontWeight: "700" }}>{data?.NAME}</span>{" "}
+        to course{" "}
+        <span style={{ color: "maroon", fontWeight: "700" }}>
+          {data?.COURSENAME}
+        </span>{" "}
+        sponsored by{" "}
+        <span style={{ color: "maroon", fontWeight: "700" }}>
+          {data?.SPONSOR}
+        </span>
+      </p>
+      <div className="flex justify-between p-2">
+        <h5 style={{ fontWeight: "600", fontSize: "18px" }}>Course Summary</h5>
       </div>
-      {/* width="100%" border="0" cellSpacing="0" cellPadding="4" style={{ backgroundColor: "#F0F0F0" }} */}
+
+      <TableContainer
+        component={Paper}
+        style={{ marginTop: "10px", width: "100%" }}
+      >
+        <Table sx={{ border: "2px solid maroon" }}>
+          <TableBody>
+            <TableRow sx={{ border: "2px solid white" }}>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Login ID:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+                {data?.URNNO}
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Course Name:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+                {data?.COURSENAME}
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Creation Date:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+                {data?.ENTRYDATE}
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                End Date:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+                {data?.EXPIRYDATE}
+              </TableCell>
+            </TableRow>
+            <TableRow></TableRow>
+            <TableRow></TableRow>
+            <TableRow sx={{ border: "2px solid white" }}>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Training Start Date:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+                {data?.TRAININGSTARTDATE}
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Training End Date:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+                {data?.TRAININGENDDATE}
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Allotted Hours:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+                {data?.TOTALTIME}
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Completed Hours:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+                {data?.USEDTIME}
+              </TableCell>
+            </TableRow>
+            <TableRow></TableRow>
+            <TableRow></TableRow>
+            <TableRow sx={{ border: "2px solid white" }}>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Remaining Hours:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+                {data?.REMANING_TIME}
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Days Remaining:
+              </TableCell>
+              <TableCell sx={{ border: "2px solid white" }}>
+              {daysRemaining}
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "2px solid white",
+                  color: "darkblue",
+                  fontWeight: "600",
+                }}
+              >
+                Status:
+              </TableCell>
+              <TableCell
+                sx={{ 
+                  border: "2px solid white",
+                  color: getStatusColor(status),
+                  fontWeight: "600",
+                }}
+              >
+                {status}
+              </TableCell>
+            </TableRow>
+            <TableRow></TableRow>
+            <TableRow></TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      {/* Container for Charts */}
       <div
-        className="col-6 p-4"
         style={{
-          width: "50%",
-          border: "0",
-          cellSpacing: "0",
-          backgroundColor: "#f0f0f0",
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+          width: "100%",
         }}
       >
-        <p style={{ fontSize: "18px", color: "#595959" }}>
-          Welcome {data?.NAME} to New-IC38 - Life -25 Hrs course {data?.COURSENAME} by TATA
-          AIA LIFE INSURANCE CO. LTD
-        </p>
+        {/* Bar Chart for Daily Logged Hours */}
+        <div style={{ flex: 1, marginRight: "20px" }}>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={dailyHoursData}>
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="hours" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Pie Chart for Completed and Remaining Hours */}
+        <div style={{ flex: 1 }}>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={chartData}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                fill="#82ca9d"
+                label={({ name, value }) => `${name}: ${value} s`}
+              >
+                <Cell key="completed" fill="#8884d8" />
+                <Cell key="remaining" fill="#82ca9d" />
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* <div
+        style={{
+          width: "100%",
+          marginTop: '30px',
+          backgroundColor: "white",
+        }}
+      >
         <br />
-        <p style={{ fontSize: "18px", color: "#595959" }}>
+        <p style={{ fontSize: "14px", color: "#595959" }}>
+          Note:
+        </p>
+        <p style={{ fontSize: "14px", color: "#595959" }}>
           You must study <strong>00:00:00</strong> hrs before{" "}
-          <strong>{data.ENTRYDATE} {data.TOTALTIME}</strong> to complete your training.
+          <strong>
+            {data.ENTRYDATE} {data.TOTALTIME}
+          </strong>{" "}
+          to complete your training.
         </p>
-        <br />
-        <p style={{ fontSize: "18px", color: "#595959" }}>
+        
+        <p style={{ fontSize: "14px", color: "#595959" }}>
           Please read the Help » <a href="#">Instructions</a> carefully before
           starting your course.
         </p>
-        <br />
-        <p style={{ fontSize: "18px", color: "#595959" }}>
+       
+        <p style={{ fontSize: "14px", color: "#595959" }}>
           Should you have any problem or need advice, post your query in the{" "}
           <a href="#">Discussion Board's</a> appropriate category.
         </p>
-        <br />
-        <p style={{ fontSize: "18px", color: "#595959" }}>
+       
+        <p style={{ fontSize: "14px", color: "#595959" }}>
           You can also contact us by email at{" "}
           <a href="mailto:help@dreamweaversindia.com">
             help@dreamweaversindia.com
           </a>{" "}
           or by phone at 91-181-7102501.
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }

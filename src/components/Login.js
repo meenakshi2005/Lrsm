@@ -1,35 +1,33 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/Login.css";
 import { AuthContext } from "./AuthContext";
 import { login_api } from "../api/api";
+import logo from '../HB_logo_passworgpannel-removebg-preview.png'
 
-function Login({onLogin}) {
-  const { isAuthenticated,login, logout } = useContext(AuthContext);
+export default function Login({onLogin}) {
+  const { isAuthenticated, login, logout } = useContext(AuthContext);
   const [email, setEmail] = useState("KGMI123456");
   const [password, setPassword] = useState("pass@123");
-  const navigate = useNavigate(); // Use useNavigate to get the navigate function
+  const navigate = useNavigate(); 
   async function handleLogin() {
-    
- // Replace this with the actual token you receive
-   
-    const data ={
-      email,password
-    }
-    const res=  await login_api(data);
+    const data = {
+      email,
+      password,
+    };
+    const res = await login_api(data);
     console.log(res);
-    
-    if (res.statuscode==1) {
-      alert(res.message);
-      onLogin(res.token,res?.studentid,data?.email);
 
-     
-      navigate("/");
+    if (res.statuscode === 1) {
+      // alert(res.message);
+      onLogin(res.token, res?.studentid, data?.email);
+      window.location.href = "/#/home";
     } else {
-      alert(res.message,"Invalid user email and password");
+      alert(res.message, "Invalid user email and password");
     }
-
   }
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,109 +35,105 @@ function Login({onLogin}) {
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <div
-        className="flex flex-1 flex-col items-center justify-center"
-        style={{
-          backgroundColor: "ButtonFace",
-          width: "90%",
-          margin: "0 auto",
-          padding: "20px",
-        }}
-      >
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          {/* <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          /> */}
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Registered User's Sign in
-          </h2>
-        </div>
+    <section className="p-3 p-md-4 p-xl-5">
+      <div className="container">
+        <div className="card border-light-subtle shadow-sm">
+          <div className="row g-0">
+            <div
+              className="col-12 col-md-6 "
+              style={{ backgroundColor: "white" }}
+            >
+              <div className="d-flex align-items-center justify-content-center h-100">
+                <div className="col-10 col-xl-8 py-3 text-center">
+              <div className="d-flex align-items-center justify-content-center h-100">
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="text"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  style={{ padding: "10px" }}
-                  id="email"
-                  name="email"
-                  type="text"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                 
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
+                  <img
+                    className="img-fluid rounded mb-4"
+                    loading="lazy"
+                    src={logo}
+                    width="80"
+                    height="40"
+                    alt="BootstrapBrain Logo"
+                  />
+                  </div>
+                  {/* <hr className="border-primary-subtle mb-4" /> */}
+                  <h2 className="h1 mb-4">
+                    Welcome to HBITS College of Insurance
+                  </h2>
+                  <p className="lead m-0">
+                    {/* We write words, take photos, make videos, and interact with
+                    artificial intelligence. */}
+                  </p>
                 </div>
               </div>
-              <div className="mt-2">
-                <input
-                  style={{ padding: "10px" }}
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+            </div>
+            <div
+              className="col-12 col-md-6"
+              style={{ backgroundColor: "lightgrey" }}
+            >
+              <div className="card-body p-3 p-md-4 p-xl-5">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="mb-5">
+                      <h3>Log in</h3>
+                    </div>
+                  </div>
+                </div>
+                <form onSubmit={handleSubmit}>
+                  <div className="row gy-3 gy-md-4 overflow-hidden">
+                    <div className="col-12">
+                      <label htmlFor="email" className="form-label">
+                        Email <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="name"
+                        className="form-control"
+                        name="email"
+                        id="email"
+                        placeholder="name@example.com"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                    <div className="col-12">
+                      <label htmlFor="password" className="form-label">
+                        Password <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        name="password"
+                        id="password"
+                        value={password}
+                        required
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                    
+                    <div className="col-12">
+                      <div className="d-grid">
+                        <button
+                          className="btn bsb-btn-xl btn"
+                         
+                          type="submit"
+                          style={{
+                            backgroundColor: "darkblue",
+                            color: "white",
+                          }}
+                        >
+                          Sign in 
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+               
               </div>
             </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                style={{ backgroundColor: "#680431" }}
-              >
-                Login
-              </button>
-            </div>
-          </form>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Start a 14 day free trial
-            </a>
-          </p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
-
-export default Login;
-
-
-

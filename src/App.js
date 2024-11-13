@@ -1,6 +1,6 @@
 import "./App.css";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Routes,
   Navigate,
@@ -21,6 +21,9 @@ import Faq from "./components/Faq";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./components/AuthContext";
 import PrivateRoute from "./Protected";
+import ResultSummary from "./components/ResultSummary";
+import DetailedSummary from "./components/DetailedSummary";
+import Header from "./components/Header";
 
 function App({ navigation }) {
   const { isAuthenticated, login, logout } = useContext(AuthContext);
@@ -41,12 +44,11 @@ function App({ navigation }) {
 
   return (
     <Router>
-      {token ? <Navbar onLogout={logout} /> : <Navbar2 />}
-      {/* <Navbar onLogout={logout} /> */}
+   <Header/>
+     
       <Routes>
         <Route
-          
-          path="/"
+          path="/home"
           element={
             <PrivateRoute>
               <Home />
@@ -54,9 +56,11 @@ function App({ navigation }) {
           }
         />
         <Route path="/login" element={<Login onLogin={login} />} />
+        <Route path="/" element={<Login onLogin={login} />} />
+
 
         <Route
-          path="/report"
+          path="/course"
           element={
             <PrivateRoute>
               <Report />
@@ -71,17 +75,21 @@ function App({ navigation }) {
             </PrivateRoute>
           }
         />
-        <Route 
-        path="/heltin" 
-        element={  
-        <PrivateRoute>
-          <Heltin />
-          </PrivateRoute>
-        } 
+        <Route
+          path="/heltin"
+          element={
+            <PrivateRoute>
+              <Heltin />
+            </PrivateRoute>
+          }
         />
         <Route path="/finaltest" element={<Finaltest />} />
+        <Route path="/resultsummary" element={<PrivateRoute><ResultSummary /></PrivateRoute>} />
+
         <Route path="/revisiontest" element={<Revisiontest />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/test" element={<PrivateRoute><Test /></PrivateRoute>} />
+        <Route path="/detailedsummary" element={<PrivateRoute><DetailedSummary /></PrivateRoute>} />
+
         <Route path="/changepass" element={<Changepass />} />
         <Route path="/introduction" element={<Introduction />} />
         <Route path="/faq" element={<Faq />} />

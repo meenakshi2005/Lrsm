@@ -1,4 +1,4 @@
-import { Fragment, useState, removeToken, useContext } from "react";
+import { Fragment, useState, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,19 +11,19 @@ const user = {
 };
 
 const navigation = [
-  { name: "Home", href: "/", current: false },
+  { name: "Home", href: "/home", current: false },
   {
-    name: "Report",
+    name: "Course",
     href: "/report",
     current: false,
     subMenu: [
       { name: "Report", href: "/report" },
       { name: "Attendance", href: "/attendance" },
-      { name: "Test", href: "/test" },
+      { name: "Glossary", href: "/test" },
     ],
   },
   {
-    name: "Tests",
+    name: "Glossary",
     href: "/test",
     current: false,
     subMenu: [
@@ -31,15 +31,20 @@ const navigation = [
       { name: "Final Test", href: "/final-test" },
     ],
   },
-  { name: "Attendance", href: "/attendance" },
+  { name: "Daily Progess", href: "/attendance" },
+  { name: "Sign Out", href: "/login" },
+
 ];
+
+
+
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  // { name: "Your Profile", href: "#" },
+  // { name: "Settings", href: "#" },
   {
     name: "Sign out",
     onClick: () => {
-      removeToken();
+      
       window.location.to = "/login"; // Redirect to the home page
     },
     to: "/login",
@@ -66,7 +71,7 @@ export default function Example({ onLogout }) {
   return (
     <>
       <div className="min-h-full">
-        <Disclosure as="nav" style={{ backgroundColor: "#680431" }}>
+        <Disclosure as="nav" style={{ backgroundColor: "white" }}>
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -80,41 +85,34 @@ export default function Example({ onLogout }) {
                       {/* Logo or other content can go here */}
                     </div>
                     <div className="hidden md:block">
-                      <div className="ml-10 flex items-baseline space-x-4">
+                      <div className="ml-10 flex items-baseline space-x-4" style={{color:'navyblue'}}>
                         {navigation.map((item) => (
                           <div
                             key={item.name}
                             className="relative"
-                            onMouseEnter={() =>
-                              item.subMenu && setDropdownOpen(item.name)
-                            }
-                            onMouseLeave={() =>
-                              item.subMenu && setDropdownOpen(null)
-                            }
+                            // onMouseEnter={() =>
+                            //   item.subMenu && setDropdownOpen(item.name)
+                            // }
+                            // onMouseLeave={() =>
+                            //   item.subMenu && setDropdownOpen(null)
+                            // }
+                            style={{color:'black !important'}}
                           >
                             <Link
                               to={item.href}
                               className={classNames(
                                 item.current
                                   ? "bg-gray-900 text-white"
-                                  : "text-gray-300 hover:bg-gray-600 text-xl hover:text-white-300",
+                                  : "text-blue-800 hover:bg-white-600 text-xl hover:text-white-300",
                                 "rounded-md px-3 py-2 text-sm font-medium"
                               )}
                               aria-current={item.current ? "page" : undefined}
+                              style={{color:'black !important'}}
                             >
                               {item.name}
                             </Link>
                             {item.subMenu && dropdownOpen === item.name && (
                               <div className="absolute left-0 mt-2 w-48 origin-top-left rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                {item.subMenu.map((subItem) => (
-                                  <Link
-                                    key={subItem.name}
-                                    to={subItem.href}
-                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                  >
-                                    {subItem.name}
-                                  </Link>
-                                ))}
                               </div>
                             )}
                           </div>
@@ -124,7 +122,7 @@ export default function Example({ onLogout }) {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <button
+                      {/* <button
                         type="button"
                         className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         style={{ backgroundColor: "lightgrey" }}
@@ -132,7 +130,7 @@ export default function Example({ onLogout }) {
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
+                      </button> */}
 
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
