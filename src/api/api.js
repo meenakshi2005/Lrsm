@@ -18,7 +18,7 @@ const getlocaldata = async () => {
 export const login_api = async (data) => {
   console.log(data);
   const ip = ip_api();
-  const result = await axios.post("http://103.171.45.231:3000/signin", {
+  const result = await axios.post("http://103.171.45.231:4000/signin", {
     userid: data.email,
     password: data.password,
     loginfrom: `${ip}`,
@@ -38,7 +38,7 @@ export const student_api = async () => {
   console.log("valuee local ", val);
   try {
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/studentsummary",
+      "http://103.171.45.231:4000/user/studentsummary",
       { studentid: val.savedStudentId },
 
       {
@@ -63,7 +63,7 @@ export const course_api = async () => {
   try {
     const val = await getlocaldata();
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/coursesummary",
+      "http://103.171.45.231:4000/user/coursesummary",
       { cid: val.COURSEID, studentid: val.savedcid },
       {
         headers: {
@@ -84,7 +84,7 @@ export const chatpter_api = async (item) => {
   try {
     const val = await getlocaldata();
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/chapertsummary",
+      "http://103.171.45.231:4000/user/chapertsummary",
       {
         studentid: val.savedStudentId,
         chapterid: item,
@@ -110,7 +110,7 @@ export const apiAddChapterTime = async (item) => {
   try {
     const val = await getlocaldata();
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/addchaperttime",
+      "http://103.171.45.231:4000/user/addchaperttime",
       {
         studentid: val.savedStudentId,
         chapterid: item,
@@ -135,7 +135,7 @@ export const testapi = async (item) => {
   try {
     const val = await getlocaldata();
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/testsummary",
+      "http://103.171.45.231:4000/user/testsummary",
       {
         studentid: val.savedStudentId,
         chapterid: item,
@@ -160,7 +160,7 @@ export const updateanswers = async (item) => {
   try {
     const val = await getlocaldata();
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/updatetestanswer",
+      "http://103.171.45.231:4000/user/updatetestanswer",
       {
         studentid: val.savedStudentId,
         qid: item.questionIndex,
@@ -186,7 +186,7 @@ export const submitexam = async (item) => {
   try {
     const val = await getlocaldata();
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/",
+      "http://103.171.45.231:4000/user/",
       {
         studentid: val.savedStudentId,
         qid: item.questionIndex,
@@ -213,7 +213,7 @@ export const detailedExamSummary = async (item) => {
   try {
     const val = await getlocaldata();
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/examresultdetail",
+      "http://103.171.45.231:4000/user/examresultdetail",
       {
         studentid: val.savedStudentId,
         chapterid: item,
@@ -241,7 +241,7 @@ export const getDailyLimit = async (item) => {
   try {
     const val = await getlocaldata();
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/getdailytimelimit",
+      "http://103.171.45.231:4000/user/getdailytimelimit",
       {
         studentid: val.savedStudentId,
         
@@ -268,7 +268,7 @@ export const getChapterTime = async (item) => {
   try {
     const val = await getlocaldata();
     const result = await axios.post(
-      "http://103.171.45.231:3000/user/getdailytimelimit",
+      "http://103.171.45.231:4000/user/getdailytimelimit",
       {
         studentid: val.savedStudentId,
         chapterid: item,
